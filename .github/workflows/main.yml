@@ -53,7 +53,7 @@ jobs:
           sdkMap["23.05.2"]="openwrt-sdk-23.05.2-x86-64_gcc-12.3.0_musl"
           SDK=${sdkMap["${{ inputs.sdk_version }}"]}
           echo "USE SDK=$SDK"
-          wget https://archive.openwrt.org/releases/${{ inputs.sdk_version }}/targets/x86/64/$SDK.Linux-x86_64.tar.xz
+          wget https://downloads.openwrt.org/releases/${{ inputs.sdk_version }}/targets/x86/64/$SDK.Linux-x86_64.tar.xz
           xz -d $SDK.Linux-x86_64.tar.xz
           tar -xf $SDK.Linux-x86_64.tar
           mv $SDK.Linux-x86_64 openwrt-sdk
