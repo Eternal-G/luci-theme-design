@@ -1,4 +1,4 @@
-name: Release 23.05.4 mt7981b
+name: Release 23.05.4
 
 on:
   push:
@@ -72,7 +72,7 @@ jobs:
           echo "status=success" >> $GITHUB_OUTPUT
           
       - name: Upload to Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: steps.build.outputs.status == 'success' && github.event.inputs.upload_artifact == 'true' && !cancelled()
         with:
           name: luci-theme-design-${{ inputs.sdk_version }}
