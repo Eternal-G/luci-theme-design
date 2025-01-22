@@ -1,4 +1,4 @@
-name: Release 23.05.4
+name: Release 23.05.3
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
       sdk_version:
         description: '编译SDK版本'     
         required: true
-        default: '23.05.4' 
+        default: '23.05.3' 
         type: choice
         options:
         - 21.02.7
@@ -49,13 +49,14 @@ jobs:
       - name: Download SDK for ImmortalWrt
         run: |
           declare -A sdkMap=()
-          sdkMap["23.05.4"]="immortalwrt-sdk-23.05.4-x86-64_gcc-12.3.0_musl"
+          sdkMap["23.05.3"]="immortalwrt-sdk-23.05.3-mediatek-filogic_gcc-12.3.0_musl"
           SDK=${sdkMap["${{ inputs.sdk_version }}"]}
           echo "USE SDK=$SDK"
-          wget https://downloads.immortalwrt.org/releases/${{ inputs.sdk_version }}/targets/mediatek/mt7981b/$SDK.Linux-x86_64.tar.xz
+          wget https://downloads.immortalwrt.org/releases/23.05.3/targets/mediatek/filogic/$SDK.Linux-x86_64.tar.xz
           xz -d $SDK.Linux-x86_64.tar.xz
           tar -xf $SDK.Linux-x86_64.tar
           mv $SDK.Linux-x86_64 immortalwrt-sdk
+
 
       - name: Build for ImmortalWrt
         id: build
