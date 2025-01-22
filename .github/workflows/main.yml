@@ -1,0 +1,45 @@
+name: Build luci-theme-design
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Clone OpenWrt source
+      run: |
+        git clone https://github.com/openwrt/openwrt.git openwrt
+        cd openwrt
+
+    - name: Add luci-theme-design
+      run: |
+        cd openwrt
+        git clone https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
+
+    - name: Setup feeds
+      run: |
+        cd openwrt
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
+    - name: Configure Build
+      run: |
+        cd openwrt
+        make menuconfig  # 可用 sed 自动选择 luci-theme-design
+
+    - name: Build IPK
+      run: |
+        cd openwrt
+        make package/luci-theme-design/compile V=s
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: luci-theme-design-ipk
+        path: openwrt/bin/packages/**/luci-theme-design_*.ipk
