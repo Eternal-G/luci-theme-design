@@ -63,7 +63,7 @@ jobs:
         id: build
         run: | 
           cd immortalwrt-sdk
-          git clone --depth=1 -b "openwrt-23.05" https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
+          git clone https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
           ./scripts/feeds update -a && ./scripts/feeds install -a
           echo "CONFIG_PACKAGE_luci-theme-design=y" >> .config
           make defconfig
